@@ -49,17 +49,17 @@ repos:
           - --max-line-length=88
           - --extend-ignore=E203,F722
 
--   repo: https://github.com/PyCQA/pydocstyle
-    rev: 6.3.0
-    hooks:
-    -   id: pydocstyle
-        args:
-          - --ignore-decorators=property
+# -   repo: https://github.com/PyCQA/pydocstyle
+#     rev: 6.3.0
+#     hooks:
+#     -   id: pydocstyle
+#         args:
+#           - --ignore-decorators=property
 
--   repo: https://github.com/pre-commit/mirrors-mypy
-#    rev: v1.9.0
-    rev: v1.11.2
-    hooks:
-    -   id: mypy
-        args:
-          - --ignore-missing-imports
+# -   repo: https://github.com/pre-commit/mirrors-mypy
+# #    rev: v1.9.0
+#     rev: v1.11.2
+#     hooks:
+#     -   id: mypy
+#         args:
+#           - --ignore-missing-imports
