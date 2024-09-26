@@ -111,7 +111,7 @@ class StonksModel(jft.Model):
             ),
             gamma=ohp_gamma,
             dt=self.dt,
-            N_steps=self.nt,
+            N_steps=self.nt - 1,
             x0=0.0,
         )
         self.starting_price = jft.LogNormalPrior(
