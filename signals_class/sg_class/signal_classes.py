@@ -58,6 +58,42 @@ class SignalResponse(jft.Model):
         return self.signal(x) * self.sensitivity
 
 
+class SignalCF(jft.Model):
+    def __init__(
+        self,
+        correlated_field: jft.model.Model,
+    ):
+        self.cf = correlated_field
+        super().__init__(init=self.cf.init)
+
+    def __call__(
+        self,
+        x,
+    ):
+        return jnp.exp(self.cf(x))
+
+
+class SignalCFRemovePadding(jft.Model):
+    def __init__(
+        self,
+        field: jft.model.Model,
+        pad_left: int,
+        pad_right: Optional[int] = None,
+    ):
+        self.filed = field
+        self.pad_left = pad_left
+        self.pad_right = pad_right if pad_right is not None else pad_left
+        super().__init__(init=self.filed.init)
+
+    def __call__(
+        self,
+        x,
+    ):
+        res = self.filed(x)
+        res = res[self.pad_left : -self.pad_right]
+        return res
+
+
 class SignalBase(jft.Model):
     def __init__(
         self,
