@@ -177,13 +177,16 @@ class StonksModel(jft.Model):
         return starting_price_val * jnp.exp(log_price_pred) * (1.0 + price_fluctuations)
 
 
-# class SignalRes(jft.Model):
-#     def __call__(self, x):
-#         res = super().__call__(x)[self.data_size:]
-#         return res
+class ResponsePredict(jft.Model):
+    def __init__(
+        self,
+        field: jft.Model,
+        size: int,
+    ):
+        self.size = size
+        self.field = field
+        super().__init__(init=self.field.init)
 
-
-# class SignalRes(jft.Model):
-#     def __call__(self, x):
-#         res = super().__call__(x)[self.data_size:]
-#         return res
+    def __call__(self, x):
+        res = self.field(x)
+        return res[: self.size]
